@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/user");
 const verifyAdmin = async (req, res, next) => {
   const email = req.decoded.email;
   const query = { email: email };
