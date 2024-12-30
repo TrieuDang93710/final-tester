@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require('../models/user');
 
 // get all users
 const getAllUsers = async (req, res) => {
@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
   try {
     const existingUser = await User.findOne(query);
     if (existingUser) {
-      return res.status(302).json({ message: "User already exists!" });
+      return res.status(302).json({ message: 'User already exists!' });
     }
     const result = await User.create(user);
     res.status(200).json(result);
@@ -33,9 +33,9 @@ const deleteUser = async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(userId);
     // if user not found
     if (!deletedUser) {
-      return res.status(404).json({ message: "User not found!" });
+      return res.status(404).json({ message: 'User not found!' });
     }
-    res.status(200).json({ message: "User deleted successfully!" });
+    res.status(200).json({ message: 'User deleted successfully!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -49,11 +49,11 @@ const getAdmin = async (req, res) => {
     const user = await User.findOne(query);
     // console.log(user)
     if (email !== req.decoded.email) {
-      return res.status(403).send({ message: "Forbidden access" });
+      return res.status(403).send({ message: 'Forbidden access' });
     }
     let admin = false;
     if (user) {
-      admin = user?.role === "admin";
+      admin = user?.role === 'admin';
     }
     res.status(200).json({ admin });
   } catch (error) {
@@ -66,14 +66,10 @@ const makeAdmin = async (req, res) => {
   const userId = req.params.id;
   const { name, email, photoURL, role } = req.body;
   try {
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { role: "admin" },
-      { new: true, runValidators: true }
-    );
+    const updatedUser = await User.findByIdAndUpdate(userId, { role: 'admin' }, { new: true, runValidators: true });
 
     if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -86,5 +82,5 @@ module.exports = {
   createUser,
   deleteUser,
   getAdmin,
-  makeAdmin,
+  makeAdmin
 };
