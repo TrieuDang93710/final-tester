@@ -1,4 +1,4 @@
-const Cart = require("../models/cart");
+const Cart = require('../models/cart');
 
 // get carts using email
 const getCartByEmail = async (req, res) => {
@@ -22,9 +22,7 @@ const addToCart = async (req, res) => {
     const existingCartItem = await Cart.findOne({ email, menuItemId });
     // console.log(existingCartItem)
     if (existingCartItem) {
-      return res
-        .status(400)
-        .json({ message: "Product already exists in the cart!" });
+      return res.status(400).json({ message: 'Product already exists in the cart!' });
     }
 
     const cartItem = await Cart.create({
@@ -34,7 +32,7 @@ const addToCart = async (req, res) => {
       image,
       price,
       quantity,
-      email,
+      email
     });
 
     res.status(201).json(cartItem);
@@ -49,9 +47,9 @@ const deleteCart = async (req, res) => {
   try {
     const deletedCart = await Cart.findByIdAndDelete(cartId);
     if (!deletedCart) {
-      return res.status(401).json({ message: "Cart Items not found!" });
+      return res.status(401).json({ message: 'Cart Items not found!' });
     }
-    res.status(200).json({ message: "Cart Item Deleted Successfully!" });
+    res.status(200).json({ message: 'Cart Item Deleted Successfully!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -68,11 +66,11 @@ const updateCart = async (req, res) => {
       { menuItemId, name, recipe, image, price, quantity, email },
       {
         new: true,
-        runValidators: true,
+        runValidators: true
       }
     );
     if (!updatedCart) {
-      return res.status(404).json({ message: "Cart Item not found" });
+      return res.status(404).json({ message: 'Cart Item not found' });
     }
     res.status(200).json(updatedCart);
   } catch (error) {
@@ -96,5 +94,5 @@ module.exports = {
   addToCart,
   deleteCart,
   updateCart,
-  getSingleCart,
+  getSingleCart
 };

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const cartSchema = new Schema({
@@ -7,7 +7,7 @@ const cartSchema = new Schema({
     type: String,
     trim: true,
     required: true,
-    minlength: 3,
+    minlength: 3
   },
   recipe: String,
   image: String,
@@ -16,10 +16,10 @@ const cartSchema = new Schema({
   email: {
     type: String,
     true: true,
-    required: true,
-  },
+    required: true
+  }
 });
 
-const Cart = mongoose.model("Cart", cartSchema);
+const Cart = mongoose.model('Cart', cartSchema);
 
 module.exports = Cart;
