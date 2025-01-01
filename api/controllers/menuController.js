@@ -1,10 +1,10 @@
-const Menu = require("../models/menu");
+const Menu = require('../models/menu');
 
 // Get all menu items
 
 const getAllMenuItems = async (req, res, next) => {
   try {
-    const menus = await Menu.find({});
+    const menus = await Menu.find({}).sort({createdAt: -1});
     // console.log(menus);
     res.status(200).json(menus);
   } catch (error) {
@@ -33,9 +33,9 @@ const deleteMenuItem = async (req, res) => {
     // console.log(deletedItem);
 
     if (!deletedItem) {
-      return res.status(404).json({ message: "Menu not found" });
+      return res.status(404).json({ message: 'Menu not found' });
     }
-    res.status(200).json({ message: "Menu Item deleted successfully!" });
+    res.status(200).json({ message: 'Menu Item deleted successfully!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -44,8 +44,10 @@ const deleteMenuItem = async (req, res) => {
 // get single menu item
 const singleMenuItem = async (req, res) => {
   const menuId = req.params.id;
+  console.log('menuId: ', menuId)
   try {
     const menu = await Menu.findById(menuId);
+    console.log('menu: ', menu)
     res.status(200).json(menu);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -64,7 +66,7 @@ const updateMenuItem = async (req, res) => {
     );
 
     if (!updatedMenu) {
-      return res.status(404).json({ message: "Menu not found" });
+      return res.status(404).json({ message: 'Menu not found' });
     }
 
     res.status(200).json(updatedMenu);
@@ -78,5 +80,5 @@ module.exports = {
   postMenuItem,
   deleteMenuItem,
   singleMenuItem,
-  updateMenuItem,
+  updateMenuItem
 };
