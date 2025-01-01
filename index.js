@@ -6,7 +6,9 @@ var bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
+const stripe = require('stripe')(
+  'sk_test_51QbwqIRY8Ckvs89Tr3tsuFkjbVDDWGhMx58iH995Bp1fDcsDdAPxJkNJBbnYek0x0soThTgfMdOCsjYwZuOZdzmo00zj2X4SE8'
+);
 
 dotenv.config();
 
