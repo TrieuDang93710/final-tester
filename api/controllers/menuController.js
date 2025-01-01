@@ -4,7 +4,7 @@ const Menu = require('../models/menu');
 
 const getAllMenuItems = async (req, res, next) => {
   try {
-    const menus = await Menu.find({});
+    const menus = await Menu.find({}).sort({createdAt: -1});
     // console.log(menus);
     res.status(200).json(menus);
   } catch (error) {
@@ -44,8 +44,10 @@ const deleteMenuItem = async (req, res) => {
 // get single menu item
 const singleMenuItem = async (req, res) => {
   const menuId = req.params.id;
+  console.log('menuId: ', menuId)
   try {
     const menu = await Menu.findById(menuId);
+    console.log('menu: ', menu)
     res.status(200).json(menu);
   } catch (error) {
     res.status(500).json({ message: error.message });
